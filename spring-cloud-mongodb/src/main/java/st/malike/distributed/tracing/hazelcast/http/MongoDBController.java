@@ -31,9 +31,9 @@ public class MongoDBController {
   @ResponseBody
   public Map read(@PathVariable String id, HttpServletResponse response) {
     logger.info("readFromMongoDB(\"" + id + "\"");
-    Query query= new Query();
-    query.addCriteria(new Criteria("idField").is(id));
-    return mongoTemplate.findOne(query,Map.class,"tracing_mongodb");
+    Query query = new Query();
+    query.addCriteria(new Criteria("idField").is(Integer.parseInt(id)));
+    return mongoTemplate.findOne(query, Map.class, "tracing_mongodb");
   }
 
   @RequestMapping(value = {
@@ -42,7 +42,7 @@ public class MongoDBController {
   public String write(@PathVariable String id, @RequestBody String param, HttpServletResponse
       response) {
     logger.info("writeToMongoDB(\"" + id + "\"");
-    mongoTemplate.save(param,"tracing_mongodb");
+    mongoTemplate.save(param, "tracing_mongodb");
     return param;
   }
 
